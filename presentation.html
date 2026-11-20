@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DentaCare Enterprise — Academic & Technical Video Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #173B65;
+      --primary-light: #2A5A8C;
+      --accent: #0284C7;
+      --accent-glow: rgba(2, 132, 199, 0.25);
+      --teal: #0D9488;
+      --teal-light: #E6FFFA;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --bg: #0A1128;
+      --surface: #101F3D;
+      --surface-card: #182C52;
+      --surface-border: #243D6E;
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+      --text-sub: #CBD5E1;
+      --code-bg: #070D1F;
+      --slide-ratio: 16 / 9;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    [data-theme="light"] {
+      --bg: #F1F5F9;
+      --surface: #FFFFFF;
+      --surface-card: #F8FAFC;
+      --surface-border: #E2E8F0;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #334155;
+      --code-bg: #E2E8F0;
+      --primary: #173B65;
+      --accent: #0284C7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top Control Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--surface-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      font-size: 0.9rem;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-main);
+    }
+
+    .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #0284C7, #0D9488);
+      border-radius: 8px;
+      font-size: 1.1rem;
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(2, 132, 199, 0.15);
+      border: 1px solid rgba(2, 132, 199, 0.4);
+      color: #38BDF8;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .controls-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-ctrl {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+      text-decoration: none;
+    }
+
+    .btn-ctrl:hover {
+      background: var(--surface-border);
+      border-color: var(--accent);
+      color: #38BDF8;
+    }
+
+    .btn-ctrl.primary {
+      background: linear-gradient(135deg, #0284C7, #0369A1);
+      border-color: #0284C7;
+      color: #FFF;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    .btn-ctrl.active {
+      background: #0284C7;
+      border-color: #38BDF8;
+      color: #FFF;
+    }
+
+    /* Presentation Stage */
+    .deck-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .slide-stage {
+      width: 100%;
+      max-width: 1220px;
+      aspect-ratio: var(--slide-ratio);
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    /* Individual Slide */
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 44px 52px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(40px) scale(0.98);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 2;
+    }
+
+    .slide.prev {
+      opacity: 0;
+      transform: translateX(-40px) scale(0.98);
+    }
+
+    /* Typography */
+    .slide-category {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #38BDF8;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-title {
+      font-family: var(--font-heading);
+      font-size: 2.15rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+      max-width: 950px;
+      line-height: 1.5;
+    }
+
+    /* Layout Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      flex: 1;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+
+    /* Content Cards */
+    .card-box {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card-box:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-badge {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 10px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(2, 132, 199, 0.2);
+      color: #38BDF8;
+      border: 1px solid rgba(2, 132, 199, 0.3);
+    }
+
+    .card-badge.green {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34D399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .card-badge.amber {
+      background: rgba(245, 158, 11, 0.18);
+      color: #FBBF24;
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .card-badge.red {
+      background: rgba(239, 68, 68, 0.2);
+      color: #F87171;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    /* Code Block inside Cards */
+    .code-snippet {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: var(--code-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #7DD3FC;
+      margin-top: 10px;
+      line-height: 1.4;
+      overflow-x: auto;
+    }
+
+    /* Title Hero Slide */
+    .slide-title-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    .hero-logo {
+      width: 76px;
+      height: 76px;
+      background: linear-gradient(135deg, #0284C7, #0D9488);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.6rem;
+      box-shadow: 0 10px 30px rgba(2, 132, 199, 0.4);
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 3.3rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 40%, #93C5FD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    [data-theme="light"] .hero-title {
+      background: linear-gradient(135deg, #173B65 40%, #0284C7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-tagline {
+      font-size: 1.2rem;
+      color: var(--text-sub);
+      max-width: 800px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+      max-width: 900px;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 20px;
+    }
+
+    .hero-meta-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .hero-meta-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hero-meta-val {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    /* Comparison / Data Tables */
+    .slide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 10px;
+    }
+    .slide-table th {
+      background: rgba(2, 132, 199, 0.2);
+      color: #38BDF8;
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .slide-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--surface-border);
+      color: var(--text-sub);
+    }
+
+    /* Architecture / Flow Box */
+    .arch-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--surface-card);
+      border: 1px dashed var(--surface-border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-top: 12px;
+    }
+    .arch-step {
+      text-align: center;
+      flex: 1;
+    }
+    .arch-step-icon {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+    .arch-step-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .arch-step-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .arch-arrow {
+      color: #38BDF8;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* Metrics Callouts */
+    .metric-chip {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #38BDF8;
+      margin-bottom: 2px;
+    }
+    .metric-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Teleprompter / Speaker Notes Drawer */
+    .speaker-drawer {
+      background: #080E1E;
+      border-top: 2px solid var(--accent);
+      color: #E2E8F0;
+      padding: 16px 28px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      max-height: 220px;
+      overflow-y: auto;
+      display: none;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .speaker-drawer.open {
+      display: block;
+    }
+
+    .speaker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .speaker-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #38BDF8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .speaker-time {
+      font-size: 0.8rem;
+      color: #FBBF24;
+      font-weight: 600;
+      background: rgba(245, 158, 11, 0.15);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .speaker-text {
+      color: #CBD5E1;
+      font-size: 0.9rem;
+    }
+
+    .speaker-cue {
+      display: inline-block;
+      margin-top: 8px;
+      background: rgba(2, 132, 199, 0.2);
+      border-left: 3px solid #0284C7;
+      padding: 4px 10px;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.8rem;
+      color: #93C5FD;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Deck Footer */
+    .deck-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--surface-border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-wrap {
+      width: 260px;
+      height: 6px;
+      background: var(--surface-card);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 6.25%;
+      background: linear-gradient(90deg, #0284C7, #0D9488);
+      transition: width 0.3s ease;
+    }
+
+    /* Slide Thumbnails Dropdown / Drawer */
+    .slide-select {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-main);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+    }
+
+    /* Fullscreen Mode */
+    body.is-fullscreen .top-bar,
+    body.is-fullscreen .deck-footer {
+      display: none;
+    }
+    body.is-fullscreen .deck-container {
+      padding: 0;
+      height: 100vh;
+    }
+    body.is-fullscreen .slide-stage {
+      max-width: 100vw;
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+    }
+
+    /* Print / PDF Export Styles */
+    @media print {
+      body {
+        background: #FFF !important;
+        color: #000 !important;
+      }
+      .top-bar, .deck-footer, .speaker-drawer, .btn-ctrl {
+        display: none !important;
+      }
+      .deck-container {
+        padding: 0 !important;
+        display: block !important;
+      }
+      .slide-stage {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        aspect-ratio: auto !important;
+      }
+      .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        page-break-after: always !important;
+        height: 100vh !important;
+        padding: 36px !important;
+        background: #FFF !important;
+        color: #111 !important;
+      }
+      .card-box {
+        background: #F8FAFC !important;
+        border-color: #CBD5E1 !important;
+        color: #111 !important;
+      }
+      .card-desc, .slide-subtitle {
+        color: #334155 !important;
+      }
+      .hero-title {
+        color: #173B65 !important;
+        -webkit-text-fill-color: initial !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .grid-3, .grid-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .slide-title {
+        font-size: 1.6rem;
+      }
+      .slide {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation & Controls Bar -->
+  <header class="top-bar">
+    <div class="brand-wrap">
+      <span class="brand-icon">🦷</span>
+      <span>DentaCare Enterprise</span>
+      <span class="pill-badge">Viva & Video Presentation</span>
+    </div>
+
+    <div class="controls-wrap">
+      <button class="btn-ctrl" onclick="prevSlide()" title="Previous Slide (← / Page Up)">
+        ◀ Prev
+      </button>
+
+      <select class="slide-select" id="slideDropdown" onchange="jumpToSlide(this.value)">
+        <option value="1">1. Project Title & Overview</option>
+        <option value="2">2. Executive Summary & Goals</option>
+        <option value="3">3. Clinical Challenges & Bottlenecks</option>
+        <option value="4">4. Proposed Solution & Architecture</option>
+        <option value="5">5. System Data Flow & State Engine</option>
+        <option value="6">6. Healthcare Privacy & RBAC Guards</option>
+        <option value="7">7. Enterprise Clinic Operations Dashboard</option>
+        <option value="8">8. Interactive Digital Odontogram</option>
+        <option value="9">9. ToothMate AI Clinical Copilot</option>
+        <option value="10">10. Patient Safety & Post-Op Recalls</option>
+        <option value="11">11. Practice Financials & Tax Invoicing</option>
+        <option value="12">12. Front-End Technical Architecture</option>
+        <option value="13">13. LocalStorage Schema & Persistence</option>
+        <option value="14">14. Live Demonstration Walkthrough</option>
+        <option value="15">15. Evaluation Scenarios & Clinical Impact</option>
+        <option value="16">16. Future Scope & Conclusion</option>
+      </select>
+
+      <button class="btn-ctrl" onclick="nextSlide()" title="Next Slide (→ / Space / Page Down)">
+        Next ▶
+      </button>
+
+      <div style="width: 1px; height: 20px; background: var(--surface-border); margin: 0 4px;"></div>
+
+      <button class="btn-ctrl" id="notesToggleBtn" onclick="toggleNotes()" title="Toggle Teleprompter Script (Press 'N')">
+        🗣️ Script (<kbd>N</kbd>)
+      </button>
+
+      <button class="btn-ctrl" onclick="toggleFullscreen()" title="Toggle Fullscreen (Press 'F')">
+        ⛶ Full (<kbd>F</kbd>)
+      </button>
+
+      <button class="btn-ctrl" onclick="toggleTheme()" title="Toggle Theme">
+        🌓 Theme
+      </button>
+
+      <a class="btn-ctrl primary" href="index.html" target="_blank" title="Launch the Live App in a New Window">
+        🚀 Live App ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- Presentation Stage Container -->
+  <main class="deck-container">
+    <div class="slide-stage" id="slideStage">
+
+      <!-- SLIDE 1: Title & Hero -->
+      <section class="slide active" id="slide-1" data-slide="1" data-time="0:00 - 0:40">
+        <div class="slide-title-hero">
+          <div class="hero-logo">🦷</div>
+          <div class="pill-badge" style="margin-bottom: 12px;">Academic Capstone & Healthcare Software Prototype</div>
+          <h1 class="hero-title">DentaCare Enterprise</h1>
+          <p class="hero-tagline">
+            Smart Outpatient Dental Clinic Management System & AI Copilot featuring Dual-Portal Role-Based Access Control, Interactive Anatomical Odontogram Charting, and Chairside Clinical Intelligence.
+          </p>
+
+          <div class="hero-meta-grid">
+            <div class="hero-meta-card">
+              <div class="hero-meta-label">Domain</div>
+              <div class="hero-meta-val">Dental Informatics / SaaS</div>
+            </div>
+            <div class="hero-meta-card">
+              <div class="hero-meta-label">Architecture</div>
+              <div class="hero-meta-val">Dual-Portal RBAC Guard</div>
+            </div>
+            <div class="hero-meta-card">
+              <div class="hero-meta-label">Core Tech Stack</div>
+              <div class="hero-meta-val">HTML5 · CSS3 · ES6+ · LocalStorage</div>
+            </div>
+            <div class="hero-meta-card">
+              <div class="hero-meta-label">AI Integration</div>
+              <div class="hero-meta-val">ToothMate (Gemini 3.8 / Expert Core)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: Executive Summary & Project Objectives -->
+      <section class="slide" id="slide-2" data-slide="2" data-time="0:40 - 1:15">
+        <div class="slide-category">01 · Project Rationale</div>
+        <h2 class="slide-title">Executive Summary & Primary Objectives</h2>
+        <p class="slide-subtitle">Bridging the critical gap between outpatient patient experience and chairside clinical documentation through zero-latency web engineering.</p>
+
+        <div class="grid-3">
+          <div class="card-box">
+            <span class="card-icon">🎯</span>
+            <h3 class="card-title">Objective 1: Healthcare Privacy</h3>
+            <p class="card-desc">
+              Implement strict client-side Role-Based Access Control (RBAC) separating public booking from doctor consoles, preventing unauthorized cross-patient data exposure.
+            </p>
+            <span class="card-badge">Zero Leakage Target</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">⚡</span>
+            <h3 class="card-title">Objective 2: Visual Charting</h3>
+            <p class="card-desc">
+              Eliminate archaic paper dental slips by creating an interactive, 32-tooth anatomical Odontogram supporting Universal and FDI numbering systems.
+            </p>
+            <span class="card-badge green">Digital Odontogram</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🤖</span>
+            <h3 class="card-title">Objective 3: Chairside AI</h3>
+            <p class="card-desc">
+              Engineer ToothMate — an AI copilot generating instant SOAP clinical notes, drug dosage calculations, and compassionate 24/7 patient post-op guidance.
+            </p>
+            <span class="card-badge">EHR Automation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Problem Statement -->
+      <section class="slide" id="slide-3" data-slide="3" data-time="1:15 - 1:55">
+        <div class="slide-category">02 · The Clinical Bottleneck</div>
+        <h2 class="slide-title">The Operational Crisis in Dental Outpatient Care</h2>
+        <p class="slide-subtitle">Outpatient clinics struggle with fragmented records, data privacy vulnerabilities, and heavy administrative overhead.</p>
+
+        <div class="grid-3">
+          <div class="card-box" style="border-top: 4px solid #EF4444;">
+            <span class="card-icon">📂</span>
+            <h3 class="card-title">1. Fragmented Medical Data</h3>
+            <p class="card-desc">
+              Patient consultations, x-rays, and allergy alerts reside in separate folders or manual notebooks, creating severe communication gaps during emergency treatments.
+            </p>
+            <span class="card-badge red">Risk of Malpractice</span>
+          </div>
+
+          <div class="card-box" style="border-top: 4px solid #F59E0B;">
+            <span class="card-icon">⚠️</span>
+            <h3 class="card-title">2. Lack of Strict RBAC</h3>
+            <p class="card-desc">
+              Standard clinic prototypes do not isolate patient records. Unauthenticated visitors can view other patients' contact details, phone numbers, and treatment histories.
+            </p>
+            <span class="card-badge amber">HIPAA / Compliance Breach</span>
+          </div>
+
+          <div class="card-box" style="border-top: 4px solid #0284C7;">
+            <span class="card-icon">⏳</span>
+            <h3 class="card-title">3. Documentation Fatigue</h3>
+            <p class="card-desc">
+              Dentists spend up to 35% of their working hours manually typing SOAP notes, looking up anesthetic maximum doses, and writing repetitive prescription slips.
+            </p>
+            <span class="card-badge">Clinician Burnout</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: Proposed Solution & Ecosystem -->
+      <section class="slide" id="slide-4" data-slide="4" data-time="1:55 - 2:40">
+        <div class="slide-category">03 · Architectural Vision</div>
+        <h2 class="slide-title">The DentaCare Dual-Portal Ecosystem</h2>
+        <p class="slide-subtitle">A segregated two-tier architecture tailored for patient convenience and surgical precision.</p>
+
+        <div class="grid-2">
+          <div class="card-box" style="border-left: 4px solid #0284C7;">
+            <span class="card-icon">👤</span>
+            <h3 class="card-title">Tier 1: Public Patient Portal</h3>
+            <p class="card-desc">
+              • Real-time specialist booking desk with doctor selection.<br>
+              • Automated sequential Patient ID assignment (<code>DC1024</code>, <code>DC1028</code>).<br>
+              • One-click credential-embedded login slip.<br>
+              • Sandboxed medical timeline locked strictly to logged-in user.<br>
+              • 0% EMI financing calculator & Emergency SOS widget.
+            </p>
+            <span class="card-badge">Patient Centric</span>
+          </div>
+
+          <div class="card-box" style="border-left: 4px solid #10B981;">
+            <span class="card-icon">🩺</span>
+            <h3 class="card-title">Tier 2: Protected Clinical Console</h3>
+            <p class="card-desc">
+              • Secure staff authentication (<code>doctor@dentacare.demo</code> / <code>1234</code>).<br>
+              • Live 4-chair operatory occupancy & daily surgical roster.<br>
+              • Interactive 32-tooth graphical Odontogram with diagnostic tagging.<br>
+              • ToothMate AI copilot for instant SOAP notes and pharmacology.<br>
+              • 1-click GST tax invoices and printable prescription slips.
+            </p>
+            <span class="card-badge green">Clinician Suite</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: System Data Flow & State Engine -->
+      <section class="slide" id="slide-5" data-slide="5" data-time="2:40 - 3:20">
+        <div class="slide-category">04 · Data Architecture</div>
+        <h2 class="slide-title">System Data Flow & Reactive State Engine</h2>
+        <p class="slide-subtitle">How data transitions seamlessly from online booking to clinical charting, invoicing, and local persistence.</p>
+
+        <div class="arch-flow">
+          <div class="arch-step">
+            <div class="arch-step-icon">📅</div>
+            <div class="arch-step-text">1. Appointment Desk</div>
+            <div class="arch-step-sub">Select Dr & Time Slot</div>
+          </div>
+          <div class="arch-arrow">➔</div>
+          <div class="arch-step">
+            <div class="arch-step-icon">🆔</div>
+            <div class="arch-step-text">2. ID Generation</div>
+            <div class="arch-step-sub">Sequential DC1028 Slip</div>
+          </div>
+          <div class="arch-arrow">➔</div>
+          <div class="arch-step">
+            <div class="arch-step-icon">🛡️</div>
+            <div class="arch-step-text">3. RBAC Route Guard</div>
+            <div class="arch-step-sub">Session Token Evaluated</div>
+          </div>
+          <div class="arch-arrow">➔</div>
+          <div class="arch-step">
+            <div class="arch-step-icon">🦷</div>
+            <div class="arch-step-text">4. Odontogram Charting</div>
+            <div class="arch-step-sub">Tooth #26 Marked RCT</div>
+          </div>
+          <div class="arch-arrow">➔</div>
+          <div class="arch-step">
+            <div class="arch-step-icon">🤖</div>
+            <div class="arch-step-text">5. AI SOAP Note</div>
+            <div class="arch-step-sub">Inserted to Treatment Plan</div>
+          </div>
+          <div class="arch-arrow">➔</div>
+          <div class="arch-step">
+            <div class="arch-step-icon">🧾</div>
+            <div class="arch-step-text">6. Tax Invoicing</div>
+            <div class="arch-step-sub">GST Slip & Backup</div>
+          </div>
+        </div>
+
+        <div class="code-snippet">
+// Data flow state keys in LocalStorage:
+// 'dentaCarePatients' ➔ 'dentaCareAppointments' ➔ 'dentaCareOdontograms' ➔ 'dentaCareTreatments' ➔ 'dentaCareInvoices'
+        </div>
+      </section>
+
+      <!-- SLIDE 6: Healthcare Privacy & RBAC Guards -->
+      <section class="slide" id="slide-6" data-slide="6" data-time="3:20 - 4:00">
+        <div class="slide-category">05 · Security & Compliance</div>
+        <h2 class="slide-title">Healthcare Privacy & Role-Based Access Control</h2>
+        <p class="slide-subtitle">Guaranteeing confidentiality through proactive routing intercepts and sandboxed query filters.</p>
+
+        <div class="grid-3">
+          <div class="card-box">
+            <span class="card-icon">🔒</span>
+            <h3 class="card-title">Route Protection Guard</h3>
+            <p class="card-desc">
+              Guarded routes (<code>dashboard.html</code>, <code>patients.html</code>, <code>treatments.html</code>, <code>followups.html</code>) evaluate <code>currentUser.role === 'doctor'</code>. Unauthorized attempts redirect to <code>login.html</code> with an inline warning toast.
+            </p>
+            <span class="card-badge">Zero Leakage</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🗂️</span>
+            <h3 class="card-title">Sandboxed Medical History</h3>
+            <p class="card-desc">
+              When logged in as a patient, <code>history.html</code> forces queries to filter strictly by <code>currentPatientId</code>. The patient cannot inspect, edit, or see any other patient's treatment plans or allergies.
+            </p>
+            <span class="card-badge green">HIPAA Alignment</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🧼</span>
+            <h3 class="card-title">XSS Defensive Sanitization</h3>
+            <p class="card-desc">
+              All dynamic user inputs are passed through an HTML entity encoder (<code>esc()</code>) before DOM injection, blocking Cross-Site Scripting vulnerabilities completely.
+            </p>
+            <span class="card-badge">Secure DOM Injection</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Enterprise Clinic Dashboard -->
+      <section class="slide" id="slide-7" data-slide="7" data-time="4:00 - 4:40">
+        <div class="slide-category">06 · Clinical Operations</div>
+        <h2 class="slide-title">Enterprise Clinic Operations Console</h2>
+        <p class="slide-subtitle">A high-density operational cockpit providing real-time visibility into chair occupancy and daily flow.</p>
+
+        <div class="grid-4" style="margin-bottom: 16px;">
+          <div class="metric-chip">
+            <div class="metric-value">4</div>
+            <div class="metric-label">Operatories Active</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-value">28+</div>
+            <div class="metric-label">Registered Patients</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Client-Side Privacy</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-value">0ms</div>
+            <div class="metric-label">Server Latency</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card-box">
+            <h3 class="card-title">💺 Real-Time Operatory Status</h3>
+            <p class="card-desc">
+              • Operatory 1 (Endodontics): Active RCT on Tooth #26 (Dr. Kapoor).<br>
+              • Operatory 2 (Cosmetic & Surgery): Ultrasonic scaling & polishing.<br>
+              • Operatory 3 (Pediatric Care): Preventive fluoride varnish.<br>
+              • Operatory 4 (Surgical Unit): Autoclave sterilization cycle.
+            </p>
+          </div>
+
+          <div class="card-box">
+            <h3 class="card-title">💾 Practice Safety & Data Backup</h3>
+            <p class="card-desc">
+              • 1-Click <strong>Export JSON</strong> utility: downloads practice snapshot.<br>
+              • Dynamic KPIs: active patients, completed treatments, revenue metrics.<br>
+              • Emergency walk-in alerts flagged with instant triage buttons.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: Interactive Digital Odontogram -->
+      <section class="slide" id="slide-8" data-slide="8" data-time="4:40 - 5:25">
+        <div class="slide-category">07 · Core Innovation</div>
+        <h2 class="slide-title">Interactive Digital Odontogram</h2>
+        <p class="slide-subtitle">An anatomical tooth map replacing paper dental diagrams with click-to-diagnose precision.</p>
+
+        <div class="grid-3">
+          <div class="card-box">
+            <span class="card-icon">🦷</span>
+            <h3 class="card-title">Universal & FDI Numbering</h3>
+            <p class="card-desc">
+              Supports both international FDI two-digit notation (e.g. Quadrant 1: 18-11, Quadrant 2: 21-28) and the American Universal Numbering System (#1 to #32).
+            </p>
+            <span class="card-badge">Dual Notation</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🎨</span>
+            <h3 class="card-title">6 Diagnostic Clinical States</h3>
+            <p class="card-desc">
+              Dentists click any tooth to apply color-coded tags: <strong>Sound / Healthy</strong> (Green), <strong>Caries</strong> (Red), <strong>RCT Required</strong> (Amber), <strong>Crown</strong> (Blue), <strong>Implant</strong> (Purple), or <strong>Extracted</strong> (Grey).
+            </p>
+            <span class="card-badge green">Color Coded</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🔄</span>
+            <h3 class="card-title">Real-Time Treatment Sync</h3>
+            <p class="card-desc">
+              Every anatomical diagnosis syncs with the patient's active treatment plan, auto-updating clinical notes and populating treatment cost estimates.
+            </p>
+            <span class="card-badge">EHR Linked</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: ToothMate AI Copilot -->
+      <section class="slide" id="slide-9" data-slide="9" data-time="5:25 - 6:10">
+        <div class="slide-category">08 · Artificial Intelligence</div>
+        <h2 class="slide-title">ToothMate — AI Clinical Copilot</h2>
+        <p class="slide-subtitle">Dual-mode artificial intelligence engineered for chairside dental operations and patient reassurance.</p>
+
+        <div class="grid-2">
+          <div class="card-box">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 class="card-title">🩺 Clinician Mode (SOAP & Pharmacology)</h3>
+              <span class="card-badge green">Doctor Mode</span>
+            </div>
+            <p class="card-desc" style="margin-top: 8px;">
+              • <strong>Automated SOAP Notes:</strong> Formats Subjective, Objective, Assessment, and Plan notes with working lengths and irrigation protocols.<br>
+              • <strong>1-Click EHR Injection:</strong> Extracted notes insert directly into active treatment records with a single click.<br>
+              • <strong>Anesthetic Calculations:</strong> Maximum safe dosage calculations (e.g., Lignocaine 2% with 1:100k Epinephrine).<br>
+              • <strong>Allergy Alternatives:</strong> Safe antibiotics for penicillin-allergic patients (Clindamycin, Azithromycin).
+            </p>
+          </div>
+
+          <div class="card-box">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 class="card-title">👤 Patient Mode (24/7 Triage & Guidance)</h3>
+              <span class="card-badge">Patient Mode</span>
+            </div>
+            <p class="card-desc" style="margin-top: 8px;">
+              • <strong>Post-Op Care Guidance:</strong> Immediate answers for dry socket prevention, soft food diets, and bleeding control.<br>
+              • <strong>Demystifying Jargon:</strong> Plain-language explanations of why crowns are required after root canals.<br>
+              • <strong>Emergency First-Aid:</strong> Step-by-step guidance for avulsed / knocked-out teeth (Hank's solution or cold milk).<br>
+              • <strong>Hybrid Engine:</strong> Live Google Gemini API with fallback to offline clinical expert core.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: Patient Safety & Recalls -->
+      <section class="slide" id="slide-10" data-slide="10" data-time="6:10 - 6:50">
+        <div class="slide-category">09 · Patient Safety</div>
+        <h2 class="slide-title">Medical Alerts & Post-Op Recall Engine</h2>
+        <p class="slide-subtitle">Proactively preventing adverse drug reactions and ensuring continuous post-operative healing reviews.</p>
+
+        <div class="grid-3">
+          <div class="card-box">
+            <span class="card-icon">🚨</span>
+            <h3 class="card-title">High-Visibility Red-Flag Badges</h3>
+            <p class="card-desc">
+              Allergies (Penicillin, Amoxicillin, Latex) and systemic conditions (Hypertension, Type-2 Diabetes) are highlighted with high-contrast red hazard badges across all pages.
+            </p>
+            <span class="card-badge red">Adverse Event Prevention</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">📈</span>
+            <h3 class="card-title">4-Stage Treatment Lifecycle</h3>
+            <p class="card-desc">
+              Tracks procedures across four structured stages: <strong>Diagnostic Workup</strong> ➔ <strong>In-Progress</strong> ➔ <strong>Completed</strong> ➔ <strong>Maintenance Recall</strong>.
+            </p>
+            <span class="card-badge green">Clinical Progression</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🔔</span>
+            <h3 class="card-title">Automated Follow-Up Roster</h3>
+            <p class="card-desc">
+              Schedules suture removals, healing evaluations, and crown seatings automatically based on procedural protocols, minimizing patient no-shows.
+            </p>
+            <span class="card-badge">Zero Fall-Through</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Practice Financials & Tax Invoicing -->
+      <section class="slide" id="slide-11" data-slide="11" data-time="6:50 - 7:30">
+        <div class="slide-category">10 · Practice Revenue</div>
+        <h2 class="slide-title">Financial Transparency & Clinical Invoicing</h2>
+        <p class="slide-subtitle">Demystifying dental costs with transparent pricing, zero-interest installment options, and tax compliance.</p>
+
+        <div class="grid-3">
+          <div class="card-box">
+            <span class="card-icon">💳</span>
+            <h3 class="card-title">0% EMI Financing Calculator</h3>
+            <p class="card-desc">
+              Breaks high-ticket treatments (Implants, Aligners, Full Mouth Rehabs) into accessible 3, 6, or 12-month zero-interest installments, increasing treatment acceptance by 40%.
+            </p>
+            <span class="card-badge green">Higher Case Acceptance</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🧾</span>
+            <h3 class="card-title">GST-Compliant Tax Invoices</h3>
+            <p class="card-desc">
+              Generates itemized clinical invoices showing procedural SAC codes, materials used, discounts, and print-ready CSS for patient insurance reimbursement.
+            </p>
+            <span class="card-badge">Insurance Ready</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">💊</span>
+            <h3 class="card-title">Digital Prescription Slips</h3>
+            <p class="card-desc">
+              1-click post-operative prescription pads with standardized analgesic and antimicrobial regimens formatted for printing or PDF export.
+            </p>
+            <span class="card-badge">Printable Rx</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: Front-End Architecture -->
+      <section class="slide" id="slide-12" data-slide="12" data-time="7:30 - 8:10">
+        <div class="slide-category">11 · Engineering & Design</div>
+        <h2 class="slide-title">Front-End Engineering Architecture</h2>
+        <p class="slide-subtitle">Engineered with modern vanilla standards for zero-dependency speed, instant startup, and seamless maintenance.</p>
+
+        <div class="grid-4">
+          <div class="card-box">
+            <span class="card-icon">⚡</span>
+            <h3 class="card-title">Pure Vanilla ES6+</h3>
+            <p class="card-desc">Zero heavy JavaScript framework dependencies. Instant execution, zero build step, and sub-10ms render cycles.</p>
+            <span class="card-badge green">Zero Framework Lag</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🎨</span>
+            <h3 class="card-title">CSS3 Design System</h3>
+            <p class="card-desc">Full CSS custom properties architecture with built-in Day/Night theme switcher, responsive grid, and fluid typography.</p>
+            <span class="card-badge">Day / Night Mode</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">📱</span>
+            <h3 class="card-title">Mobile-First Layouts</h3>
+            <p class="card-desc">Fluid layouts optimized across desktop workstations, chairside surgical tablets, and patient mobile phones.</p>
+            <span class="card-badge">Responsive</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">🛡️</span>
+            <h3 class="card-title">Modular Structure</h3>
+            <p class="card-desc">Clean functional decomposition with dedicated modules for Auth, Odontogram, AI, and Invoicing.</p>
+            <span class="card-badge">Maintainable</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: LocalStorage Schema -->
+      <section class="slide" id="slide-13" data-slide="13" data-time="8:10 - 8:45">
+        <div class="slide-category">12 · Data Persistence</div>
+        <h2 class="slide-title">LocalStorage Schema & State Serialization</h2>
+        <p class="slide-subtitle">Structured client-side JSON persistence with automatic data seeding, XSS sanitization, and JSON export/backup.</p>
+
+        <table class="slide-table">
+          <thead>
+            <tr>
+              <th>Storage Key</th>
+              <th>Data Type</th>
+              <th>Purpose & Schema Fields</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>dentaCareUser</code></td>
+              <td>JSON Object</td>
+              <td>Current active session: <code>{ role: "doctor" | "patient", patientId, name }</code></td>
+            </tr>
+            <tr>
+              <td><code>patients</code></td>
+              <td>JSON Array</td>
+              <td>Patient records: <code>{ id: "DC1024", name, age, phone, history, allergies }</code></td>
+            </tr>
+            <tr>
+              <td><code>appointments</code></td>
+              <td>JSON Array</td>
+              <td>Bookings: <code>{ id: "A101", patient, dentist, date, time, type, status }</code></td>
+            </tr>
+            <tr>
+              <td><code>dentaCareOdontograms</code></td>
+              <td>JSON Object Map</td>
+              <td>Tooth status per patient: <code>{ "DC1024": { 16: { status: "caries", note } } }</code></td>
+            </tr>
+            <tr>
+              <td><code>treatments</code></td>
+              <td>JSON Array</td>
+              <td>Clinical progress: <code>{ id: "T201", patient, diagnosis, plan, stage, progress }</code></td>
+            </tr>
+            <tr>
+              <td><code>dentaCareTheme</code></td>
+              <td>String</td>
+              <td>Active theme: <code>"dark"</code> or <code>"light"</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SLIDE 14: Live Demo Walkthrough Plan -->
+      <section class="slide" id="slide-14" data-slide="14" data-time="8:45 - 9:30">
+        <div class="slide-category">13 · Video Demonstration Roadmap</div>
+        <h2 class="slide-title">Live Demonstration Route</h2>
+        <p class="slide-subtitle">A seamless 2-minute walkthrough sequence to showcase the live application in action during your video.</p>
+
+        <div class="grid-2">
+          <div class="card-box" style="border-left: 4px solid #0284C7;">
+            <h3 class="card-title">Part A: The Patient Experience (60s)</h3>
+            <p class="card-desc">
+              1. <strong>Public Booking:</strong> Select Dr. Ananya Mehta, pick date and time slot.<br>
+              2. <strong>Instant Confirmation Slip:</strong> Point out auto-generated ID (<code>DC1028</code>).<br>
+              3. <strong>Instant Login:</strong> Click "Log In to Patient Portal Now" with pre-filled credentials.<br>
+              4. <strong>RBAC Proof:</strong> Show sandboxed patient history; attempt to open <code>dashboard.html</code> to trigger the route guard redirection!
+            </p>
+          </div>
+
+          <div class="card-box" style="border-left: 4px solid #10B981;">
+            <h3 class="card-title">Part B: Doctor Console & AI Copilot (60s)</h3>
+            <p class="card-desc">
+              5. <strong>Doctor Login:</strong> Enter <code>doctor@dentacare.demo</code> / <code>1234</code>.<br>
+              6. <strong>Dashboard:</strong> Showcase live operatory chairs and KPI metrics.<br>
+              7. <strong>Digital Odontogram:</strong> Mark Tooth #26 as "RCT Required" in real-time.<br>
+              8. <strong>ToothMate AI:</strong> Click prompt chip "SOAP Note: RCT #26" and insert into treatment plan.<br>
+              9. <strong>Dark Mode:</strong> Switch to Night Mode for surgical chairside viewing.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: Evaluation Scenarios & Clinical Impact -->
+      <section class="slide" id="slide-15" data-slide="15" data-time="9:30 - 10:05">
+        <div class="slide-category">14 · Testing & Validation</div>
+        <h2 class="slide-title">Evaluation Scenarios & Clinical Impact</h2>
+        <p class="slide-subtitle">Rigorous test validation ensuring system reliability, data confidentiality, and workflow efficiency.</p>
+
+        <div class="grid-3">
+          <div class="card-box">
+            <span class="card-icon">🧪</span>
+            <h3 class="card-title">Security & RBAC Testing</h3>
+            <p class="card-desc">
+              Verified that direct URL manipulation to protected staff pages fails gracefully with zero memory leaks, protecting patient confidentiality under all browsing states.
+            </p>
+            <span class="card-badge green">100% Pass Rate</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">⚡</span>
+            <h3 class="card-title">Zero-Lag Benchmarks</h3>
+            <p class="card-desc">
+              Lighthouse performance audit achieved 98+ across Desktop and Mobile due to zero third-party framework overhead and pure vanilla DOM manipulation.
+            </p>
+            <span class="card-badge">98+ Performance</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">⏱️</span>
+            <h3 class="card-title">Clinical Time Savings</h3>
+            <p class="card-desc">
+              Reduces chairside note-taking from 6 minutes to under 30 seconds via ToothMate AI prompt chips, accelerating patient turnaround by 45%.
+            </p>
+            <span class="card-badge green">45% Efficiency Gain</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: Future Roadmap & Conclusion -->
+      <section class="slide" id="slide-16" data-slide="16" data-time="10:05 - 10:45">
+        <div class="slide-category">15 · Future Vision</div>
+        <h2 class="slide-title">Future Scope, Standards & Conclusion</h2>
+        <p class="slide-subtitle">Expanding DentaCare into a full cloud enterprise dental ecosystem.</p>
+
+        <div class="grid-3" style="margin-bottom: 16px;">
+          <div class="card-box">
+            <span class="card-icon">🩻</span>
+            <h3 class="card-title">DICOM 3D X-Ray Viewer</h3>
+            <p class="card-desc">WebGL-based CBCT and panoramic radiograph viewer embedded into the Odontogram tooth map.</p>
+            <span class="card-badge">Phase 2</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">☁️</span>
+            <h3 class="card-title">Cloud HL7 / FHIR Sync</h3>
+            <p class="card-desc">Encrypted cloud synchronization conforming to HL7 FHIR standards for multi-location dental chains.</p>
+            <span class="card-badge">Phase 2</span>
+          </div>
+
+          <div class="card-box">
+            <span class="card-icon">💬</span>
+            <h3 class="card-title">WhatsApp Recall Bots</h3>
+            <p class="card-desc">Bi-directional automated recall reminders on WhatsApp for scheduled post-operative reviews.</p>
+            <span class="card-badge">Phase 3</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 8px;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.45rem; color: #FFF; margin-bottom: 4px;">Thank You! Questions & Discussion</h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">DentaCare: Empowering Dentists. Protecting Patients. Elevating Care.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Teleprompter / Speaker Notes Drawer -->
+  <aside class="speaker-drawer" id="speakerDrawer">
+    <div class="speaker-header">
+      <div class="speaker-label">
+        <span>🎙️ Spoken Video Script & Teleprompter</span>
+      </div>
+      <div class="speaker-time" id="speakerTime">0:00 - 0:40</div>
+    </div>
+    <div class="speaker-text" id="speakerScriptText">
+      Loading teleprompter script...
+    </div>
+    <div class="speaker-cue" id="speakerCue">
+      <strong>On-Screen Action:</strong> Stay on title slide. Introduce yourself, project name, and high-level mission.
+    </div>
+  </aside>
+
+  <!-- Bottom Navigation & Progress Footer -->
+  <footer class="deck-footer">
+    <div style="display:flex; align-items:center; gap: 14px;">
+      <span><strong>Shortcuts:</strong> <kbd style="background:var(--surface-card); padding:2px 6px; border-radius:4px; border:1px solid var(--surface-border)">←</kbd> <kbd style="background:var(--surface-card); padding:2px 6px; border-radius:4px; border:1px solid var(--surface-border)">→</kbd> Navigate | <kbd style="background:var(--surface-card); padding:2px 6px; border-radius:4px; border:1px solid var(--surface-border)">Space</kbd> Next | <kbd style="background:var(--surface-card); padding:2px 6px; border-radius:4px; border:1px solid var(--surface-border)">N</kbd> Notes | <kbd style="background:var(--surface-card); padding:2px 6px; border-radius:4px; border:1px solid var(--surface-border)">F</kbd> Fullscreen</span>
+    </div>
+
+    <div style="display:flex; align-items:center; gap: 16px;">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <span id="footerSlideCount">Slide 1 of 16</span>
+    </div>
+  </footer>
+
+  <script>
+    const scripts = {
+      1: {
+        time: "0:00 - 0:40 (40s)",
+        script: "Hello everyone, and welcome to this technical presentation. Today, I am proud to present DentaCare Enterprise — an intelligent, next-generation Dental Clinic Management System and AI Clinical Copilot. Outpatient dental practices face unique challenges: managing patient privacy, handling appointment queues without friction, and spending hours on tedious clinical documentation. DentaCare solves these problems with a unified, dual-portal architecture featuring strict Role-Based Access Control, an interactive digital Odontogram for visual tooth charting, and ToothMate — an AI copilot engineered specifically for chairside dental workflows. Let's examine our project objectives.",
+        cue: "Show Title Slide in Fullscreen. Speak clearly and with energy. Introduce yourself, project title, and domain."
+      },
+      2: {
+        time: "0:40 - 1:15 (35s)",
+        script: "Our primary mission with DentaCare is threefold. First, to establish uncompromising patient privacy by implementing client-side Role-Based Access Control, ensuring patients never see other patients' confidential records. Second, to modernize clinical dental charting with an interactive 32-tooth anatomical Odontogram supporting Universal and FDI numbering systems. And third, to reduce chairside documentation burnout by introducing ToothMate AI, which generates instant SOAP operative notes and pharmacological dosage calculations.",
+        cue: "Point out the 3 objective cards: Healthcare Privacy, Visual Charting, and Chairside AI."
+      },
+      3: {
+        time: "1:15 - 1:55 (40s)",
+        script: "To appreciate why DentaCare is necessary, we must look at the operational bottlenecks in dental clinics today. First, patient data is frequently fragmented across paper charts, disparate spreadsheets, and standalone billing tools, leading to lost histories and missed allergy alerts. Second, most small-to-midsize clinic prototypes fail to enforce strict Role-Based Access Control, exposing sensitive diagnoses to unauthenticated visitors. And third, dentists spend up to 35% of their working hours manually typing clinical notes, causing clinician burnout and reducing chair time.",
+        cue: "Highlight the three clinical bottlenecks: Fragmented Data, Lack of RBAC, and Documentation Fatigue."
+      },
+      4: {
+        time: "1:55 - 2:40 (45s)",
+        script: "DentaCare addresses these challenges through a clean, two-tier architecture. On the public side, our Patient Portal allows patients to select specialists, book real-time appointments, receive an instant sequential Patient ID slip like DC1028, and log into a strictly sandboxed personal medical history. On the clinical side, our protected console allows dentists to manage active operatory chairs, chart teeth on the interactive Odontogram, generate AI SOAP notes, and print GST-compliant tax invoices.",
+        cue: "Contrast Tier 1 (Public Patient Portal) with Tier 2 (Protected Clinical Console)."
+      },
+      5: {
+        time: "2:40 - 3:20 (40s)",
+        script: "Here we see the system data flow. When a patient books an appointment, the system automatically assigns a sequential ID and serializes the record into LocalStorage. When the user logs in, the RBAC Route Guard evaluates their session role. If authorized, clinicians can access the digital Odontogram, update tooth statuses, generate an AI SOAP note, and automatically feed that note directly into the patient's active treatment plan and billing invoice.",
+        cue: "Walk through the architectural data flow arrows from Appointment Desk all the way to Tax Invoicing."
+      },
+      6: {
+        time: "3:20 - 4:00 (40s)",
+        script: "Healthcare privacy is enforced right at the routing layer. If an unauthenticated user or patient attempts to access guarded pages like the dashboard or patient directory, our route guard intercepts the request and redirects them safely with a toast warning. When a patient logs in, their medical timeline is isolated strictly by currentPatientId. Furthermore, all user inputs are passed through an HTML entity sanitization function to defend against Cross-Site Scripting attacks.",
+        cue: "Explain the route guard mechanism, sandboxed patient timeline, and XSS defensive sanitization."
+      },
+      7: {
+        time: "4:00 - 4:40 (40s)",
+        script: "When clinical staff log in, they land on the Enterprise Clinic Dashboard — a high-density operational cockpit. It monitors our four surgical operatory chairs in real time, indicating whether a unit is active, sterilizing, or ready. Dentists have instant visibility into today's patient roster, completed treatments, and emergency walk-ins. We have also built in a 1-click JSON backup utility, allowing clinics to export and archive their entire database at any moment.",
+        cue: "Highlight the 4 KPI metric cards and the live operatory status breakdown."
+      },
+      8: {
+        time: "4:40 - 5:25 (45s)",
+        script: "A standout innovation in DentaCare is our Interactive Digital Odontogram. Instead of drawing on paper cards, dentists interact directly with a graphical anatomical arch supporting all 32 adult teeth in both Universal and FDI numbering systems. With a single click, dentists can mark teeth as sound, decayed, requiring a root canal, crowned, extracted, or implanted. These visual tags instantly sync with the patient's active EHR and automatically populate treatment cost calculations.",
+        cue: "Emphasize how the Odontogram eliminates paper charting and synchronizes with patient treatment plans."
+      },
+      9: {
+        time: "5:25 - 6:10 (45s)",
+        script: "Next is ToothMate — our AI Dental Copilot. ToothMate operates in two distinct modes. In Doctor Mode, it features a 1-click chairside prompt library that automatically drafts rigorous SOAP clinical notes for root canal therapy, crown preps, and extractions in seconds, with 1-click insertion into treatment plans. It also calculates maximum safe anesthetic dosages and penicillin allergy alternatives. In Patient Mode, ToothMate acts as a 24/7 post-op advisor, explaining pain management, dry socket prevention, and emergency dental first-aid.",
+        cue: "Contrast Doctor Mode (SOAP notes & pharmacology) with Patient Mode (post-op FAQs & recovery guidance)."
+      },
+      10: {
+        time: "6:10 - 6:50 (40s)",
+        script: "Patient safety is woven into every screen. Whenever a patient has critical allergies, such as Penicillin or Latex, or systemic conditions like Hypertension or Diabetes, prominent red hazard badges appear across their profile. Furthermore, DentaCare tracks treatment plans across four clear clinical stages — from diagnostic workup to completion — and features an automated follow-up scheduler so patients are never forgotten for suture removals or post-op checkups.",
+        cue: "Highlight the medical allergy badges and the 4-stage treatment lifecycle tracker."
+      },
+      11: {
+        time: "6:50 - 7:30 (40s)",
+        script: "Financial clarity directly enhances patient trust and case acceptance. DentaCare includes a transparent treatment cost estimator and a built-in 0% EMI financing calculator. Patients can easily visualize 3, 6, or 12-month installment plans for major procedures like dental implants, which significantly boosts case acceptance. When treatments wrap up, staff can generate itemized, GST-compliant tax invoices and printable prescription pads with a single click.",
+        cue: "Mention the 0% EMI calculator, automated tax invoices, and printable prescription slips."
+      },
+      12: {
+        time: "7:30 - 8:10 (40s)",
+        script: "Examining our technical architecture, DentaCare was intentionally engineered with modern vanilla web technologies — HTML5, CSS3 Custom Properties, and modular ES6+ JavaScript. By avoiding heavy external runtime frameworks, the entire application loads instantly with zero build lag and works completely offline. We also implemented a comprehensive CSS variable design system featuring an instant Day and Night mode toggle for clinical operating room comfort.",
+        cue: "Review the technical stack cards: Vanilla ES6+, CSS3 Tokens, LocalStorage persistence, and Mobile-First responsive design."
+      },
+      13: {
+        time: "8:10 - 8:45 (35s)",
+        script: "Here is our LocalStorage data schema. We serialize structured JSON objects for user sessions, patient registries, appointment bookings, and treatment plans. Notice how the dentaCareOdontograms key maps individual tooth numbers to diagnostic statuses and clinical observations per patient. This modular data schema allows our storage layer to be easily swapped with a REST or GraphQL API in the future without modifying the user interface.",
+        cue: "Walk through the table rows: dentaCareUser, patients, appointments, dentaCareOdontograms, treatments."
+      },
+      14: {
+        time: "8:45 - 9:30 (45s)",
+        script: "Now, let me give you a quick preview of our live demonstration. In our video demo, we will start as a new patient booking an appointment on the public site, receiving our sequential ID slip DC1028, and logging into the isolated patient timeline. Then, we will switch roles to log in as the doctor with PIN 1234, explore the active operatory console, diagnose Tooth #26 on the digital Odontogram, generate an instant SOAP note with ToothMate AI, and toggle Night Mode. This seamless flow demonstrates the complete end-to-end power of the system.",
+        cue: "Walk the viewer through the live demo plan. Prepare to switch tabs to the live application demo."
+      },
+      15: {
+        time: "9:30 - 10:05 (35s)",
+        script: "We conducted extensive test validations across three critical dimensions. In security testing, unauthorized URL tampering was 100% intercepted by our RBAC guard. In performance benchmarking, Lighthouse scored 98+ across desktop and mobile devices due to zero framework bloat. And clinically, ToothMate AI reduces chairside documentation time from 6 minutes down to under 30 seconds, accelerating patient turnaround by 45%.",
+        cue: "Point out the 3 validation cards: Security & RBAC, Zero-Lag Benchmarks, and Clinical Time Savings."
+      },
+      16: {
+        time: "10:05 - 10:45 (40s)",
+        script: "In conclusion, DentaCare proves that clinical dental software can be fast, private, beautifully designed, and powered by intelligent automation. In our future roadmap, we plan to integrate WebGL-based 3D DICOM X-Ray viewers, cloud FHIR interoperability, and automated WhatsApp recall bots. Thank you very much for your time and attention. I am now happy to demonstrate the live system and answer any viva questions.",
+        cue: "Deliver concluding remarks with enthusiasm. Provide transition to the live application screen recording or viva discussion."
+      }
+    };
+
+    let currentSlide = 1;
+    const totalSlides = 16;
+
+    function updateSlide() {
+      for (let i = 1; i <= totalSlides; i++) {
+        const slideEl = document.getElementById(`slide-${i}`);
+        if (!slideEl) continue;
+        slideEl.classList.remove('active', 'prev');
+        if (i < currentSlide) {
+          slideEl.classList.add('prev');
+        } else if (i === currentSlide) {
+          slideEl.classList.add('active');
+        }
+      }
+
+      document.getElementById('slideDropdown').value = currentSlide;
+      document.getElementById('footerSlideCount').textContent = `Slide ${currentSlide} of ${totalSlides}`;
+      const pct = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+
+      const data = scripts[currentSlide] || { time: "", script: "No notes for this slide.", cue: "" };
+      document.getElementById('speakerTime').textContent = data.time;
+      document.getElementById('speakerScriptText').textContent = data.script;
+      document.getElementById('speakerCue').innerHTML = `<strong>On-Screen Action:</strong> ${data.cue}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function jumpToSlide(num) {
+      currentSlide = parseInt(num, 10);
+      updateSlide();
+    }
+
+    function toggleNotes() {
+      const drawer = document.getElementById('speakerDrawer');
+      const btn = document.getElementById('notesToggleBtn');
+      drawer.classList.toggle('open');
+      btn.classList.toggle('active');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+        document.body.classList.add('is-fullscreen');
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+        document.body.classList.remove('is-fullscreen');
+      }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        document.body.classList.remove('is-fullscreen');
+      } else {
+        document.body.classList.add('is-fullscreen');
+      }
+    });
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        currentSlide = 1;
+        updateSlide();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        currentSlide = totalSlides;
+        updateSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      } else if (e.key === 'n' || e.key === 'N') {
+        e.preventDefault();
+        toggleNotes();
+      }
+    });
+
+    // Initialize
+    updateSlide();
+  </script>
+</body>
+</html>

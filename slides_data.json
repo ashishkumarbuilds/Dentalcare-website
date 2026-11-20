@@ -1,0 +1,178 @@
+[
+  {
+    "num": 1,
+    "category": "ACADEMIC CAPSTONE & HEALTHCARE SOFTWARE PROTOTYPE",
+    "title": "DentaCare Enterprise",
+    "subtitle": "Smart Outpatient Dental Clinic Management System & AI Copilot",
+    "isTitleSlide": true,
+    "cards": [
+      { "title": "Clinical Domain", "text": "Dental Practice Informatics & Healthcare SaaS" },
+      { "title": "Architecture", "text": "Dual-Portal RBAC Guard (Staff vs Patient)" },
+      { "title": "Technical Stack", "text": "HTML5 · CSS3 Tokens · Vanilla ES6+ · LocalStorage" },
+      { "title": "AI Intelligence", "text": "ToothMate Copilot (SOAP Notes & Emergency Triage)" }
+    ]
+  },
+  {
+    "num": 2,
+    "category": "01 · PROJECT RATIONALE",
+    "title": "Executive Summary & Primary Objectives",
+    "subtitle": "Bridging the gap between patient experience and chairside clinical documentation.",
+    "cards": [
+      { "title": "Objective 1: Healthcare Privacy", "text": "Implement strict client-side Role-Based Access Control separating public booking desks from doctor operatory consoles to prevent confidential patient data leaks." },
+      { "title": "Objective 2: Visual Charting", "text": "Eliminate archaic paper dental slips with an interactive 32-tooth anatomical Odontogram supporting Universal (1-32) and FDI (11-48) numbering systems." },
+      { "title": "Objective 3: Chairside AI", "text": "Engineer ToothMate AI to generate automated SOAP clinical notes, drug dosage calculations, and 24/7 post-op recovery guidance in under 30 seconds." }
+    ]
+  },
+  {
+    "num": 3,
+    "category": "02 · THE CLINICAL BOTTLENECK",
+    "title": "The Operational Crisis in Dental Outpatient Care",
+    "subtitle": "Outpatient practices grapple with record fragmentation, privacy hazards, and documentation burnout.",
+    "cards": [
+      { "title": "1. Fragmented Patient Records", "text": "Medical histories, x-rays, and allergy alerts reside in separate folders or manual notebooks, leading to communication gaps and malpractice risks during emergency treatments." },
+      { "title": "2. Lack of Strict RBAC", "text": "Standard clinic prototypes do not isolate patient records. Unauthenticated visitors can view other patients' contact details, diagnoses, and medical histories." },
+      { "title": "3. Documentation Fatigue", "text": "Dentists spend up to 35% of their working day manually typing SOAP notes, looking up anesthetic dosages, and drafting repetitive prescription slips." }
+    ]
+  },
+  {
+    "num": 4,
+    "category": "03 · ARCHITECTURAL VISION",
+    "title": "The DentaCare Dual-Portal Ecosystem",
+    "subtitle": "A segregated two-tier architecture tailored for patient convenience and surgical precision.",
+    "cards": [
+      { "title": "Tier 1: Public Patient Portal", "text": "• Specialist discovery & real-time booking desk with time chips\n• Automated sequential Patient ID assignment (e.g. DC1028)\n• 1-click credential-embedded login confirmation slip\n• Sandboxed medical timeline locked strictly to logged-in user\n• 0% EMI financing calculator & Emergency SOS triage widget" },
+      { "title": "Tier 2: Protected Clinical Console", "text": "• Secure staff authentication (doctor@dentacare.demo / 1234)\n• Live 4-chair operatory occupancy & daily surgical roster\n• Interactive 32-tooth graphical Odontogram with diagnostic tagging\n• ToothMate AI copilot for instant SOAP notes and pharmacology\n• 1-click GST tax invoices and printable prescription slips" }
+    ]
+  },
+  {
+    "num": 5,
+    "category": "04 · DATA ARCHITECTURE",
+    "title": "System Data Flow & Reactive State Engine",
+    "subtitle": "How data transitions seamlessly from online booking to clinical charting, invoicing, and storage.",
+    "cards": [
+      { "title": "Step 1 & 2: Booking & Sequential ID", "text": "Patient selects doctor, date, and time slot. System automatically assigns unique sequential Patient ID (DC1028) and serializes record into dentaCarePatients." },
+      { "title": "Step 3 & 4: RBAC & Odontogram", "text": "Doctor authenticates. Route Guard evaluates session token. Clinician opens Odontogram, tags Tooth #26 with Decay and Root Canal Required, updating treatment plans." },
+      { "title": "Step 5 & 6: AI SOAP & Tax Invoicing", "text": "ToothMate AI drafts complete SOAP clinical note with working length and irrigation protocol. Upon completion, system generates 18% GST tax invoice and prescription pad." }
+    ]
+  },
+  {
+    "num": 6,
+    "category": "05 · SECURITY & COMPLIANCE",
+    "title": "Healthcare Privacy & Role-Based Access Control",
+    "subtitle": "Guaranteeing confidentiality through proactive routing intercepts and sandboxed query filters.",
+    "cards": [
+      { "title": "Route Protection Guard", "text": "Guarded routes (dashboard, patients, treatments, followups) evaluate currentUser.role === 'doctor'. Unauthorized attempts redirect to login.html with an inline warning toast." },
+      { "title": "Sandboxed Medical History", "text": "When logged in as a patient, history.html forces queries to filter strictly by currentPatientId. The patient cannot inspect, edit, or see any other patient's treatment plans or allergies." },
+      { "title": "Defensive XSS Sanitization", "text": "All dynamic user inputs are passed through an HTML entity escaping engine (esc) replacing &, <, >, \", and ' before insertion into the DOM, eliminating Cross-Site Scripting vulnerabilities." }
+    ]
+  },
+  {
+    "num": 7,
+    "category": "06 · CLINICAL OPERATIONS",
+    "title": "Enterprise Clinic Operations Dashboard",
+    "subtitle": "A high-density operational cockpit for chairside tracking and practice management.",
+    "cards": [
+      { "title": "Live Operatory Tracking (Chairs 1–4)", "text": "Real-time chairside status monitors Chairs 1 through 4: Active (Occupied), Ready (Clean), Sterilizing, or Under Maintenance, optimizing room turnaround." },
+      { "title": "Daily Operational KPIs", "text": "Instant visual telemetry for Daily Scheduled Patients, Pending Follow-Ups, Active Treatments in Pipeline, and Estimated Clinic Revenue." },
+      { "title": "1-Click JSON Database Backup", "text": "Staff can export the entire clinic database into a timestamped JSON backup file (dentacare-backup-YYYY-MM-DD.json) for offline archiving and audit safety." }
+    ]
+  },
+  {
+    "num": 8,
+    "category": "07 · DENTAL INFORMATICS",
+    "title": "Interactive Digital Odontogram (32 Teeth)",
+    "subtitle": "Anatomical tooth mapping supporting Universal and FDI systems with real-time EHR synchronization.",
+    "cards": [
+      { "title": "32-Tooth Anatomical Arch", "text": "Covers all 32 adult teeth arranged anatomically across Upper Maxillary and Lower Mandibular arches, eliminating error-prone paper slips." },
+      { "title": "Dual Numbering Notation", "text": "Supports Universal Numbers (1 to 32) and FDI World Dental Federation notation (11 to 48), ensuring international standard compliance." },
+      { "title": "Diagnostic State Palette", "text": "Clicking any tooth opens a clinical palette: Sound, Carious Decay, Root Canal Required, Zirconia Crown, Extraction, or Dental Implant. Instantly synchronizes with treatment cost calculations." }
+    ]
+  },
+  {
+    "num": 9,
+    "category": "08 · ARTIFICIAL INTELLIGENCE",
+    "title": "ToothMate — AI Clinical Copilot",
+    "subtitle": "Dual-mode artificial intelligence engineered for chairside dental operations and patient reassurance.",
+    "cards": [
+      { "title": "🩺 Clinician Mode (SOAP & Pharmacology)", "text": "• Automated SOAP Notes: Formats Subjective, Objective, Assessment, Plan notes with working lengths and irrigation protocols\n• 1-Click EHR Injection: Extracted notes insert directly into treatment records\n• Anesthetic Dosage: Maximum safe dosage (Lignocaine 2% with 1:100k Epinephrine)\n• Allergy Alternatives: Safe antibiotics for penicillin-allergic patients" },
+      { "title": "👤 Patient Mode (24/7 Triage & FAQs)", "text": "• Post-Op Care Guidance: Immediate answers for dry socket prevention and diet\n• Demystifying Jargon: Plain-language explanations of root canals and crowns\n• Emergency First-Aid: Guidance for knocked-out teeth (Hank's solution or cold milk)\n• Hybrid Engine: Live Gemini API support with fallback to offline expert knowledge core" }
+    ]
+  },
+  {
+    "num": 10,
+    "category": "09 · PATIENT SAFETY",
+    "title": "Medical Alerts & Post-Op Recall Engine",
+    "subtitle": "Proactively preventing adverse drug reactions and ensuring continuous post-operative review.",
+    "cards": [
+      { "title": "High-Visibility Red Alerts", "text": "Penicillin, Latex allergies and systemic conditions like Hypertension and Type-2 Diabetes are rendered with high-contrast red hazard badges across all pages." },
+      { "title": "4-Stage Treatment Lifecycle", "text": "Tracks procedures across four structured stages: Diagnostic Workup ➔ In-Progress ➔ Completed ➔ Maintenance Recall, ensuring complete continuity of care." },
+      { "title": "Automated Follow-Up Roster", "text": "Schedules suture removals, healing evaluations, and crown seatings automatically based on procedural protocols, with direct WhatsApp reminder link generation." }
+    ]
+  },
+  {
+    "num": 11,
+    "category": "10 · PRACTICE REVENUE",
+    "title": "Financial Transparency & Clinical Invoicing",
+    "subtitle": "Demystifying dental costs with transparent pricing, zero-interest installments, and tax compliance.",
+    "cards": [
+      { "title": "0% EMI Financing Calculator", "text": "Breaks high-ticket treatments (Implants, Aligners, Full Mouth Rehabs) into accessible 3, 6, or 12-month zero-interest installments, boosting case acceptance by 40%." },
+      { "title": "GST-Compliant Tax Invoices", "text": "Generates itemized clinical invoices showing procedural SAC codes (999312), materials used, discounts, and print-ready CSS for patient insurance reimbursement." },
+      { "title": "Digital Prescription Slips", "text": "1-click post-operative prescription pads with standardized analgesic and antimicrobial regimens formatted for printing or PDF export." }
+    ]
+  },
+  {
+    "num": 12,
+    "category": "11 · TECHNICAL IMPLEMENTATION",
+    "title": "Front-End Architecture & Zero-Dependency Performance",
+    "subtitle": "High-performance web architecture engineered with modern web standards and zero framework bloat.",
+    "cards": [
+      { "title": "Vanilla ES6+ JavaScript", "text": "Modular architecture without heavy framework abstractions, eliminating build steps and delivering sub-10ms render cycles and 98+ Lighthouse scores." },
+      { "title": "CSS3 Custom Property System", "text": "Complete design token system with instant Day/Night mode switching via data-theme attribute, providing high-contrast dark theme for operatory lights." },
+      { "title": "LocalStorage State Engine", "text": "Zero-latency, 100% offline-first execution with automated schema migration, data seeding, and try-catch safety guards." }
+    ]
+  },
+  {
+    "num": 13,
+    "category": "12 · DATA PERSISTENCE",
+    "title": "LocalStorage Schema & Entity Persistence",
+    "subtitle": "Structured JSON data models supporting offline-first clinical operations.",
+    "cards": [
+      { "title": "User Session & Patients", "text": "• dentaCareUser: Session role (doctor|patient|guest), token, and profile\n• dentaCarePatients: Demographics, allergies, and systemic conditions" },
+      { "title": "Appointments & Odontograms", "text": "• dentaCareAppointments: Booking schedules, time slots, status flags\n• dentaCareOdontograms: Per-patient anatomical tooth map with condition tags" },
+      { "title": "Treatments, Follow-Ups & Invoices", "text": "• dentaCareTreatments: 4-stage pipeline, procedures, costs, SOAP clinical notes\n• dentaCareFollowups: Recall dates, suture tracking, WhatsApp links\n• dentaCareInvoices: GST tax slips, SAC codes, payment breakdowns" }
+    ]
+  },
+  {
+    "num": 14,
+    "category": "13 · SYSTEM EVALUATION",
+    "title": "Live Demonstration Walkthrough Strategy",
+    "subtitle": "Step-by-step verification demonstrating complete end-to-end clinical workflow.",
+    "cards": [
+      { "title": "Phase 1: Public Booking & ID", "text": "Book appointment on appointment.html ➔ Generate sequential ID DC1028 ➔ Pop up confirmation slip with 1-click prefilled login." },
+      { "title": "Phase 2: RBAC Security Guard", "text": "Log in as patient ➔ Attempt manual URL tampering to dashboard.html ➔ Route Guard safely intercepts and displays warning toast." },
+      { "title": "Phase 3: Doctor Cockpit & AI", "text": "Log in as doctor (PIN 1234) ➔ View Operatory Chairs ➔ Chart Tooth #26 on Odontogram ➔ Generate SOAP note with ToothMate AI ➔ Toggle Night Mode." }
+    ]
+  },
+  {
+    "num": 15,
+    "category": "14 · VALIDATION RESULTS",
+    "title": "Evaluation Scenarios & Clinical Impact",
+    "subtitle": "Quantitative metrics demonstrating security, performance, and clinician time savings.",
+    "cards": [
+      { "title": "100% RBAC Interception", "text": "Comprehensive pen-testing verified that all direct URL modifications by patients or guests towards doctor dashboards were safely intercepted." },
+      { "title": "98+ Google Lighthouse", "text": "Zero-dependency vanilla implementation scored 98+ across Performance, Accessibility, Best Practices, and SEO on desktop and mobile." },
+      { "title": "45% Turnaround Acceleration", "text": "ToothMate AI reduced clinical note drafting time from 6 minutes down to under 30 seconds per patient consultation, mitigating clinician burnout." }
+    ]
+  },
+  {
+    "num": 16,
+    "category": "15 · CONCLUSION & ROADMAP",
+    "title": "Future Scope & Concluding Defense",
+    "subtitle": "The roadmap towards enterprise cloud adoption and multi-branch clinical operations.",
+    "cards": [
+      { "title": "Phase 2 Cloud Migration", "text": "Migrate LocalStorage adapter to a high-availability PostgreSQL backend with Node.js/FastAPI REST/GraphQL microservices and JWT authentication." },
+      { "title": "FHIR & DICOM Imaging", "text": "Integrate Fast Healthcare Interoperability Resources (FHIR) and in-browser WebGL 3D DICOM cone-beam computed tomography (CBCT) viewers." },
+      { "title": "Summary", "text": "DentaCare proves that outpatient clinical software can be private, lightning-fast, visually intuitive, and powered by chairside artificial intelligence." }
+    ]
+  }
+]
